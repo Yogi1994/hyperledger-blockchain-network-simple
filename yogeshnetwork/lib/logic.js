@@ -4,20 +4,14 @@
  */
 
 /**
- * Sample transaction
- * @param {com.wicklers.network.ChangeAssetValue} changeAssetValue
+ * Track the trade of commodity from one trader to another
+ * @param {com.wicklers.network.Trade} trade - the trade to be processed
  * @transaction
  */
-function onChangeAssetValue(changeAssetValue) {
-    var assetRegistry;
-    var id = changeAssetValue.relatedAsset.assetId;
-    return getAssetRegistry('com.wicklers.network.SampleAsset')
-        .then(function(ar) {
-            assetRegistry = ar;
-            return assetRegistry.get(id);
-        })
-        .then(function(asset) {
-            asset.value = changeAssetValue.newValue;
-            return assetRegistry.update(asset);
+function tradeCommodity(trade) {
+    trade.commodity.owner = trade.newOwner;
+    return getAssetRegistry('com.wicklers.network.Commodity')
+        .then(function(assetRegistry) {
+            return assetRegistry.update(trade.commodity);
         });
 }

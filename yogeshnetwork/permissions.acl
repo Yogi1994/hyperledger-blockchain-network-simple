@@ -1,0 +1,18 @@
+/**
+ * Access control rules for yogesh-network
+ */
+rule Default {
+	description: "Allow all participant access to all resources"
+	participant: "ANY"
+	operation: ALL
+	resource: "com.wicklers.netowek.*"
+	action: ALLOW
+}
+
+rule SystemACL {
+	description: "System ACL to permit all access"
+	participant: "ANY"
+	operation: ALL
+	resource: "com.wicklers.netowek.*"
+	action: ALLOW
+}
